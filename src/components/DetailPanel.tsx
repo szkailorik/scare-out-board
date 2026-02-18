@@ -15,27 +15,29 @@ export default function DetailPanel() {
       )
     : null;
 
+  const isOpen = !!(character && charState);
+
   return (
     <AnimatePresence>
-      {character && charState && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            className="detail-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => selectCharacter(null)}
-          />
-
-          {/* Panel */}
-          <motion.div
-            className="detail-panel"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-          >
+      {isOpen && (
+        <motion.div
+          key="detail-backdrop"
+          className="detail-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => selectCharacter(null)}
+        />
+      )}
+      {isOpen && (
+        <motion.div
+          key="detail-panel"
+          className="detail-panel"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+        >
             <button
               className="detail-close"
               onClick={() => selectCharacter(null)}
@@ -110,7 +112,6 @@ export default function DetailPanel() {
               </motion.div>
             )}
           </motion.div>
-        </>
       )}
     </AnimatePresence>
   );
