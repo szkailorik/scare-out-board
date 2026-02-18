@@ -36,7 +36,7 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
 
   const [isDragging, setIsDragging] = useState(false);
   const isDraggingRef = useRef(false);
-  const dragDistRef = useRef(0);
+  const wasTapRef = useRef(false);
 
   // Random tilt for authenticity
   const [tilt] = useState(() => (Math.random() - 0.5) * 6);
@@ -107,7 +107,6 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
       dragMomentum={false}
       onDragStart={() => {
         isDraggingRef.current = true;
-        dragDistRef.current = 0;
         setIsDragging(true);
         onDragStart?.();
       }}
@@ -117,9 +116,8 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
           y: motionY.get(),
         });
       }}
-      onDragEnd={(_, info) => {
+      onDragEnd={() => {
         isDraggingRef.current = false;
-        dragDistRef.current = Math.abs(info.offset.x) + Math.abs(info.offset.y);
         setIsDragging(false);
         updatePosition(characterId, {
           x: motionX.get(),
@@ -127,12 +125,15 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
         });
         onDragEnd?.();
       }}
+      onTap={() => {
+        wasTapRef.current = true;
+        selectCharacter(characterId);
+      }}
       onClick={(e) => {
-        if (dragDistRef.current < 5) {
+        if (wasTapRef.current) {
           e.stopPropagation();
-          selectCharacter(characterId);
+          wasTapRef.current = false;
         }
-        dragDistRef.current = 0;
       }}
     >
       {/* Push pin */}
