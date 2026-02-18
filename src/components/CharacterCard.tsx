@@ -111,6 +111,12 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
         setIsDragging(true);
         onDragStart?.();
       }}
+      onDrag={() => {
+        updatePosition(characterId, {
+          x: motionX.get(),
+          y: motionY.get(),
+        });
+      }}
       onDragEnd={(_, info) => {
         isDraggingRef.current = false;
         dragDistRef.current = Math.abs(info.offset.x) + Math.abs(info.offset.y);

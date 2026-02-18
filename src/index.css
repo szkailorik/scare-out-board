@@ -6,9 +6,9 @@
   --color-unknown: #6B7280;
   --color-shadow: #1F2937;
 
-  --cork-bg: #b8916e;
-  --cork-dark: #9e7a5a;
-  --board-shadow: rgba(0,0,0,0.5);
+  --board-bg: #0f1214;
+  --board-surface: #161b1e;
+  --board-shadow: rgba(0,0,0,0.7);
 
   font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
@@ -27,7 +27,7 @@
 
 body {
   margin: 0;
-  background: #1a1410;
+  background: #0a0c0e;
   color: #f5f0eb;
   overflow: hidden;
   min-height: 100vh;
@@ -53,8 +53,8 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 8px 20px;
-  background: linear-gradient(180deg, #2d1f14 0%, #1a1410 100%);
-  border-bottom: 2px solid #4a3628;
+  background: linear-gradient(180deg, #131819 0%, #0d0f10 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   z-index: 50;
   flex-shrink: 0;
 }
@@ -114,34 +114,34 @@ body {
   overflow: hidden;
 }
 
-/* ===== Cork Board ===== */
+/* ===== Board (Dark spy-thriller style) ===== */
 .cork-board {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: var(--cork-bg);
+  background-color: var(--board-surface);
   overflow: hidden;
 }
 
-/* Cork texture via CSS pattern */
+/* Dark textured surface — scratched concrete / war-room wall */
 .cork-texture {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(160,120,80,0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(140,100,60,0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(170,130,90,0.2) 0%, transparent 50%),
-    repeating-conic-gradient(rgba(0,0,0,0.03) 0% 25%, transparent 0% 50%);
-  background-size: 400px 400px, 300px 300px, 350px 350px, 4px 4px;
+    radial-gradient(ellipse at 25% 40%, rgba(20,60,50,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, rgba(50,30,10,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 20%, rgba(10,40,40,0.15) 0%, transparent 60%),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.01) 80px, rgba(255,255,255,0.01) 81px),
+    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.01) 80px, rgba(255,255,255,0.01) 81px);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Dark vignette for atmosphere */
+/* Dark vignette — interrogation room spotlight feel */
 .vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -153,7 +153,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: rgba(60,40,20,0.6);
+  color: rgba(200,200,200,0.4);
   z-index: 3;
   pointer-events: none;
 }
@@ -295,8 +295,8 @@ body {
 /* ===== Timeline ===== */
 .timeline-container {
   flex-shrink: 0;
-  background: linear-gradient(0deg, #1a1410 0%, #2d1f14 100%);
-  border-top: 2px solid #4a3628;
+  background: linear-gradient(0deg, #0a0c0e 0%, #131819 100%);
+  border-top: 1px solid rgba(255,255,255,0.08);
   padding: 12px 20px 16px;
   z-index: 50;
 }
@@ -316,7 +316,7 @@ body {
   left: 60px;
   right: 60px;
   height: 3px;
-  background: #4a3628;
+  background: #2a3235;
   z-index: 0;
   border-radius: 2px;
 }
@@ -355,8 +355,8 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #2d1f14;
-  border: 3px solid #4a3628;
+  background: #141a1c;
+  border: 3px solid #2a3235;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,23 +365,23 @@ body {
 }
 
 .timeline-node.unlocked .node-icon {
-  background: #3d2f1e;
-  border-color: #8b7355;
+  background: #1c2628;
+  border-color: #4a6a60;
 }
 .timeline-node.current .node-icon {
-  background: #4a3520;
-  border-color: #f5d5a0;
-  box-shadow: 0 0 12px rgba(245,213,160,0.3);
+  background: #1a2a24;
+  border-color: #7aaa90;
+  box-shadow: 0 0 12px rgba(122,170,144,0.3);
 }
 .timeline-node.next .node-icon {
-  background: #3d2a18;
-  border-color: #d4a574;
+  background: #1a2520;
+  border-color: #5cba80;
   animation: glowPulse 2s infinite;
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(212,165,116,0.3); }
-  50% { box-shadow: 0 0 20px rgba(212,165,116,0.6); }
+  0%, 100% { box-shadow: 0 0 8px rgba(92,186,128,0.3); }
+  50% { box-shadow: 0 0 20px rgba(92,186,128,0.5); }
 }
 
 .unlock-icon, .lock-icon {
@@ -391,20 +391,20 @@ body {
 .node-number {
   font-size: 11px;
   font-weight: 700;
-  color: #8b7355;
+  color: #5a6a6a;
 }
 .timeline-node.current .node-number {
-  color: #f5d5a0;
+  color: #7aaa90;
 }
 
 .node-title {
   font-size: 12px;
-  color: #8b7355;
+  color: #5a6a6a;
   white-space: nowrap;
 }
 .timeline-node.unlocked .node-title,
 .timeline-node.current .node-title {
-  color: #cbb898;
+  color: #a0bfb0;
 }
 
 .pulse-ring {
@@ -413,7 +413,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid #d4a574;
+  border: 2px solid #5cba80;
   pointer-events: none;
 }
 
