@@ -45,15 +45,24 @@ export default function DetailPanel() {
 
             {/* Character info */}
             <div className="detail-header">
-              <div
-                className="detail-avatar"
-                style={{
-                  backgroundColor: character.avatarBg,
-                  borderColor: charState.currentColor,
-                }}
-              >
-                {character.id === 'shadow-boss' ? '❓' : character.name[0]}
-              </div>
+              {character.image ? (
+                <img
+                  className="detail-photo"
+                  src={import.meta.env.BASE_URL + character.image.replace(/^\//, '')}
+                  alt={character.name}
+                  style={{ borderColor: charState.currentColor }}
+                />
+              ) : (
+                <div
+                  className="detail-avatar"
+                  style={{
+                    backgroundColor: character.avatarBg,
+                    borderColor: charState.currentColor,
+                  }}
+                >
+                  {character.id === 'shadow-boss' ? '❓' : character.name[0]}
+                </div>
+              )}
               <div className="detail-names">
                 <h2>{character.name}</h2>
                 <p className="detail-actor">饰演：{character.actor}</p>

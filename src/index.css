@@ -227,6 +227,14 @@ body {
   overflow: hidden;
 }
 
+.card-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
 .avatar-letter {
   font-size: 48px;
   font-weight: 800;
@@ -582,6 +590,14 @@ body {
   font-weight: 700;
   flex-shrink: 0;
 }
+.aux-photo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  flex-shrink: 0;
+}
 .aux-info {
   display: flex;
   flex-direction: column;
@@ -655,6 +671,15 @@ body {
   font-size: 36px;
   font-weight: 800;
   color: white;
+  border: 4px solid;
+  flex-shrink: 0;
+}
+.detail-photo {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: center 20%;
   border: 4px solid;
   flex-shrink: 0;
 }

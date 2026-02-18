@@ -10,6 +10,7 @@ export interface Character {
   boardColor: string;       // initial border color
   revealedColor?: string;   // border color after reveal
   avatarBg: string;         // fallback avatar background color
+  image?: string;           // path to character photo
   initialPosition: { x: number; y: number };
   appearsInScene: number;   // scene number when this character first appears
   revealScene?: number;     // scene when true identity is revealed
@@ -38,6 +39,7 @@ export const characters: Character[] = [
     boardColor: FACTION_COLORS.china,
     revealedColor: FACTION_COLORS.double,
     avatarBg: '#3B82F6',
+    image: '/images/yan-di.jpg',
     initialPosition: { x: 300, y: 200 },
     appearsInScene: 1,
     revealScene: 5,
@@ -55,6 +57,7 @@ export const characters: Character[] = [
     boardColor: FACTION_COLORS.china,
     revealedColor: FACTION_COLORS.china,
     avatarBg: '#2563EB',
+    image: '/images/huang-kai.jpg',
     initialPosition: { x: 550, y: 150 },
     appearsInScene: 1,
     revealScene: 4,
@@ -71,6 +74,7 @@ export const characters: Character[] = [
     trueRole: '中方',
     boardColor: FACTION_COLORS.china,
     avatarBg: '#1D4ED8',
+    image: '/images/zhao-hong.jpg',
     initialPosition: { x: 150, y: 350 },
     appearsInScene: 1,
     description: '行动组队长，严迪和黄凯的直接上级。立场坚定，始终站在正义一方。',
@@ -86,6 +90,7 @@ export const characters: Character[] = [
     boardColor: FACTION_COLORS.china,
     revealedColor: FACTION_COLORS.enemy,
     avatarBg: '#059669',
+    image: '/images/li-nan.jpg',
     initialPosition: { x: 750, y: 300 },
     appearsInScene: 1,
     revealScene: 2,
@@ -103,6 +108,7 @@ export const characters: Character[] = [
     boardColor: FACTION_COLORS.unknown,
     revealedColor: FACTION_COLORS.enemy,
     avatarBg: '#9333EA',
+    image: '/images/bai-fan.jpg',
     initialPosition: { x: 550, y: 420 },
     appearsInScene: 3,
     revealScene: 4,
@@ -119,6 +125,7 @@ export const characters: Character[] = [
     trueRole: '中方幕后操盘手（保护严迪的大局）',
     boardColor: FACTION_COLORS.china,
     avatarBg: '#1E40AF',
+    image: '/images/director-wang.jpg',
     initialPosition: { x: 100, y: 100 },
     appearsInScene: 5,
     description: '国安系统高层，整个反间谍行动的幕后操盘手。他精心布局保护严迪的卧底身份，是最终的棋手。',
@@ -141,17 +148,17 @@ export const characters: Character[] = [
   },
   {
     id: 'shadow-boss',
-    name: '境外情报幕后操控者',
-    actor: '（神秘人物）',
-    coverRole: '不明',
+    name: '境外情报操控者',
+    actor: '段奕宏',
+    coverRole: '境外情报高层',
     trueFaction: 'shadow',
-    trueRole: '敌方最高指挥',
+    trueRole: '敌方最高指挥（以为控制了严迪）',
     boardColor: FACTION_COLORS.shadow,
     avatarBg: '#111827',
     initialPosition: { x: 850, y: 450 },
     appearsInScene: 5,
-    description: '隐藏在暗处的境外情报机构最高指挥者，操控白帆等人执行间谍任务。始终未露真容。',
-    keyPlot: '贯穿全片的幕后黑手，指挥整个间谍网络。',
+    description: '境外情报机构的幕后操控者，指挥白帆等人执行间谍任务。曾通过电话遥控严迪，自以为将严迪发展为己方内线，实际上严迪一直在反向输送假情报。',
+    keyPlot: '贯穿全片的幕后黑手，指挥整个间谍网络。他以为控制了严迪，实际上才是被蒙在鼓里的人。',
   },
 ];
 
@@ -165,6 +172,7 @@ export const auxiliaryCharacters: Character[] = [
     trueRole: '黄凯的妻子，怀孕中',
     boardColor: FACTION_COLORS.china,
     avatarBg: '#EC4899',
+    image: '/images/xiao-yu.jpg',
     initialPosition: { x: 0, y: 0 },
     appearsInScene: 3,
     description: '黄凯的妻子，正在怀孕。发现丈夫被色诱后内心挣扎，是电影中的情感线索。',
@@ -180,6 +188,7 @@ export const auxiliaryCharacters: Character[] = [
     trueRole: '技术支援',
     boardColor: FACTION_COLORS.china,
     avatarBg: '#6366F1',
+    image: '/images/jian-hao.jpg',
     initialPosition: { x: 0, y: 0 },
     appearsInScene: 1,
     description: '国安小组的技术分析员，负责数据分析和技术支援。',
@@ -195,6 +204,7 @@ export const auxiliaryCharacters: Character[] = [
     trueRole: '行动组成员',
     boardColor: FACTION_COLORS.china,
     avatarBg: '#0891B2',
+    image: '/images/chen-yi.jpg',
     initialPosition: { x: 0, y: 0 },
     appearsInScene: 1,
     description: '国安小组成员，参与各项行动任务。',

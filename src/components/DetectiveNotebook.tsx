@@ -72,12 +72,20 @@ export default function DetectiveNotebook() {
                 <h3>👥 其他相关人物</h3>
                 {auxiliaryCharacters.map((char) => (
                   <div key={char.id} className="aux-character">
-                    <div
-                      className="aux-avatar"
-                      style={{ backgroundColor: char.avatarBg }}
-                    >
-                      {char.name[0]}
-                    </div>
+                    {char.image ? (
+                      <img
+                        className="aux-photo"
+                        src={import.meta.env.BASE_URL + char.image.replace(/^\//, '')}
+                        alt={char.name}
+                      />
+                    ) : (
+                      <div
+                        className="aux-avatar"
+                        style={{ backgroundColor: char.avatarBg }}
+                      >
+                        {char.name[0]}
+                      </div>
+                    )}
                     <div className="aux-info">
                       <span className="aux-name">
                         {char.name}

@@ -58,6 +58,30 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
   const borderColor = charState.currentColor;
   const pinColor = PIN_COLORS[character.trueFaction] || '#9CA3AF';
   const isShadow = character.id === 'shadow-boss';
+  const hasPhoto = !!character.image;
+  const imgSrc = character.image ? import.meta.env.BASE_URL + character.image.replace(/^\//, '') : undefined;
+
+  const avatarContent = (showBadge: boolean) => (
+    <div
+      className="card-avatar"
+      style={{ backgroundColor: hasPhoto ? undefined : character.avatarBg }}
+    >
+      {hasPhoto ? (
+        <img className="card-photo" src={imgSrc} alt={character.name} draggable={false} />
+      ) : isShadow ? (
+        <span className="shadow-icon">❓</span>
+      ) : (
+        <span className="avatar-letter" style={{ color: 'white' }}>
+          {character.name[0]}
+        </span>
+      )}
+      {showBadge && (
+        <div className="reveal-badge">
+          {getFactionLabel(character.trueFaction)}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <motion.div
@@ -98,7 +122,6 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
         onDragEnd?.();
       }}
       onClick={(e) => {
-        // Only treat as click if drag distance was minimal
         if (dragDistRef.current < 5) {
           e.stopPropagation();
           selectCharacter(characterId);
@@ -123,23 +146,7 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
             transition={{ duration: 0.4 }}
             style={{ borderColor, boxShadow: `0 0 12px ${borderColor}40` }}
           >
-            {/* Avatar */}
-            <div
-              className="card-avatar"
-              style={{ backgroundColor: character.avatarBg }}
-            >
-              {isShadow ? (
-                <span className="shadow-icon">❓</span>
-              ) : (
-                <span className="avatar-letter" style={{ color: 'white' }}>
-                  {character.name[0]}
-                </span>
-              )}
-              <div className="reveal-badge">
-                {getFactionLabel(character.trueFaction)}
-              </div>
-            </div>
-            {/* Info */}
+            {avatarContent(true)}
             <div className="card-info">
               <div className="card-name">{character.name}</div>
               <div className="card-true-role">{character.trueRole}</div>
@@ -155,20 +162,7 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
             transition={{ duration: 0.4 }}
             style={{ borderColor, boxShadow: `0 0 8px ${borderColor}30` }}
           >
-            {/* Avatar */}
-            <div
-              className="card-avatar"
-              style={{ backgroundColor: character.avatarBg }}
-            >
-              {isShadow ? (
-                <span className="shadow-icon">❓</span>
-              ) : (
-                <span className="avatar-letter" style={{ color: 'white' }}>
-                  {character.name[0]}
-                </span>
-              )}
-            </div>
-            {/* Info */}
+            {avatarContent(false)}
             <div className="card-info">
               <div className="card-name">{character.name}</div>
               <div className="card-role">{character.coverRole}</div>

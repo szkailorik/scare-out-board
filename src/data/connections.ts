@@ -133,4 +133,13 @@ export const connections: Connection[] = [
     appearsInScene: 3,
     directed: false,
   },
+  {
+    id: 'conn-11',
+    from: 'shadow-boss',
+    to: 'yan-di',
+    type: 'secret_control',
+    label: '以为控制了严迪',
+    appearsInScene: 6,
+    directed: true,
+  },
 ];
