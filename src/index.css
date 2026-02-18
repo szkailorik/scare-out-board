@@ -180,7 +180,7 @@ body {
 }
 
 .card-inner {
-  width: 140px;
+  width: 150px;
   background: #faf6f0;
   border-radius: 4px;
   border: 3px solid #ccc;
@@ -219,7 +219,7 @@ body {
 /* Avatar area */
 .card-avatar {
   width: 100%;
-  height: 110px;
+  height: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,7 +231,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 25%;
   display: block;
 }
 
@@ -741,10 +741,10 @@ body {
     font-size: 10px;
   }
   .card-inner {
-    width: 120px;
+    width: 130px;
   }
   .card-avatar {
-    height: 90px;
+    height: 140px;
   }
   .avatar-letter {
     font-size: 38px;

@@ -4,8 +4,8 @@ import { connections, CONNECTION_STYLES } from '../data/connections';
 import { useGameStore } from '../store/useGameStore';
 
 // Card dimensions for calculating center points
-const CARD_WIDTH = 140;
-const CARD_HEIGHT = 200;
+const CARD_WIDTH = 150;
+const CARD_HEIGHT = 240;
 
 export default function StringConnection() {
   const visibleConnections = useGameStore((s) => s.visibleConnections);

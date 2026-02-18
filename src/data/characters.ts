@@ -149,7 +149,7 @@ export const characters: Character[] = [
   {
     id: 'shadow-boss',
     name: '境外情报操控者',
-    actor: '段奕宏',
+    actor: '（神秘人物）',
     coverRole: '境外情报高层',
     trueFaction: 'shadow',
     trueRole: '敌方最高指挥（以为控制了严迪）',
