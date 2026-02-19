@@ -113,12 +113,23 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   updateCardPosition: (characterId, position) => {
-    set((state) => ({
-      cardPositions: {
-        ...state.cardPositions,
-        [characterId]: position,
-      },
-    }));
+    set((state) => {
+      const current = state.cardPositions[characterId];
+      if (
+        current &&
+        current.x === position.x &&
+        current.y === position.y
+      ) {
+        return state;
+      }
+
+      return {
+        cardPositions: {
+          ...state.cardPositions,
+          [characterId]: position,
+        },
+      };
+    });
   },
 
   selectCharacter: (characterId) => {
