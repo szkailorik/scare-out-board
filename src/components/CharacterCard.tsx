@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
 import { characters, auxiliaryCharacters, type Faction } from '../data/characters';
 import { useGameStore } from '../store/useGameStore';
@@ -36,6 +36,8 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
 
   const [isDragging, setIsDragging] = useState(false);
   const isDraggingRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+  const pendingPositionRef = useRef<{ x: number; y: number } | null>(null);
 
   // Random tilt for authenticity
   const [tilt] = useState(() => (Math.random() - 0.5) * 6);
@@ -51,6 +53,48 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
       motionY.set(position.y);
     }
   }, [position?.x, position?.y, motionX, motionY]);
+
+  const flushPendingPosition = useCallback(() => {
+    rafRef.current = null;
+    const pending = pendingPositionRef.current;
+    if (!pending) return;
+
+    pendingPositionRef.current = null;
+    updatePosition(characterId, pending);
+  }, [characterId, updatePosition]);
+
+  const resetDragState = useCallback(() => {
+    if (!isDraggingRef.current) return;
+
+    isDraggingRef.current = false;
+    setIsDragging(false);
+
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+
+    const pending = pendingPositionRef.current;
+    pendingPositionRef.current = null;
+
+    updatePosition(
+      characterId,
+      pending ?? {
+        x: motionX.get(),
+        y: motionY.get(),
+      },
+    );
+
+    onDragEnd?.();
+  }, [characterId, motionX, motionY, onDragEnd, updatePosition]);
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
 
   if (!character || !charState?.visible) return null;
 
@@ -109,6 +153,8 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
           selectCharacter(characterId);
         }
       }}
+      onPointerCancel={resetDragState}
+      onLostPointerCapture={resetDragState}
       onClick={(e) => e.stopPropagation()}
       onDragStart={() => {
         isDraggingRef.current = true;
@@ -116,20 +162,15 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
         onDragStart?.();
       }}
       onDrag={() => {
-        updatePosition(characterId, {
+        pendingPositionRef.current = {
           x: motionX.get(),
           y: motionY.get(),
-        });
+        };
+        if (rafRef.current === null) {
+          rafRef.current = requestAnimationFrame(flushPendingPosition);
+        }
       }}
-      onDragEnd={() => {
-        isDraggingRef.current = false;
-        setIsDragging(false);
-        updatePosition(characterId, {
-          x: motionX.get(),
-          y: motionY.get(),
-        });
-        onDragEnd?.();
-      }}
+      onDragEnd={resetDragState}
     >
       {/* Push pin */}
       <div className="card-pin" style={{ backgroundColor: pinColor }}>
