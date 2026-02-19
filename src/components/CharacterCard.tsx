@@ -36,7 +36,7 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
 
   const [isDragging, setIsDragging] = useState(false);
   const isDraggingRef = useRef(false);
-  const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
+  const draggedRef = useRef(false);
 
   // Random tilt for authenticity
   const [tilt] = useState(() => (Math.random() - 0.5) * 6);
@@ -105,21 +105,14 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
       }}
       drag
       dragMomentum={false}
-      onPointerDown={(e) => {
-        pointerStartRef.current = { x: e.clientX, y: e.clientY };
-      }}
-      onPointerUp={(e) => {
-        const start = pointerStartRef.current;
-        pointerStartRef.current = null;
-        if (!start) return;
-        const dx = e.clientX - start.x;
-        const dy = e.clientY - start.y;
-        if (Math.sqrt(dx * dx + dy * dy) < 5) {
+      onClick={(e) => {
+        e.stopPropagation();
+        if (!draggedRef.current) {
           selectCharacter(characterId);
         }
       }}
       onDragStart={() => {
-        pointerStartRef.current = null;
+        draggedRef.current = true;
         isDraggingRef.current = true;
         setIsDragging(true);
         onDragStart?.();
@@ -138,6 +131,7 @@ export default function CharacterCard({ characterId, onDragStart, onDragEnd }: C
           y: motionY.get(),
         });
         onDragEnd?.();
+        setTimeout(() => { draggedRef.current = false; }, 300);
       }}
     >
       {/* Push pin */}
